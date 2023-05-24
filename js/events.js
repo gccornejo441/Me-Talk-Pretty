@@ -34,6 +34,3 @@ function installContextMenus() {
     const newURL = 'http://www.google.com/search?q=' + encodeURLComponent(text);
     chrome.tabs.create({ url: newURL });
   })
-
-
-  
