@@ -18,6 +18,7 @@ function getBrowser() {
   
 
   extensionAPI.action.onClicked.addListener((tab) => {
+    document.body.style.backgroundColor = 'red'
       extensionAPI.scripting.executeScript({
         target: {tabId: tab.id},
         function: reddenPage

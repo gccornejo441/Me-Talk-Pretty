@@ -10,8 +10,7 @@
         "32": "newtab_search32.png",
         "48": "newtab_search48.png",
         "128": "newtab_search128.png"
-      },
-      "default_popup": "hello.html"
+      }
     },
       "icons": {
         "16": "newtab_search16.png",
@@ -23,11 +22,17 @@
       "contextMenus",
       "activeTab",
       "storage",
-      "scripting"
+      "scripting", "alarms", "notifications"
     ],
-    "background": {
-      "service_worker": "background.js"
-    },
+    "content_scripts": [
+      {
+        "js": ["content.js"],
+        "matches": [
+          "https://developer.chrome.com/docs/extensions/*",
+          "https://developer.chrome.com/docs/webstore/*"
+        ]
+      }
+    ],
     "omnibox": { "keyword": "nt" },
   "options_page": "options.html",
   "commands": {
