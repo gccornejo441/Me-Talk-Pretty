@@ -1,17 +1,21 @@
-// try {
-//     importScripts(
-//       "js/defaults.js",
-//       "js/events.js"
-//     )
-//   }
-//   catch (err) {
-//     console.error(err)
-//   }
+  chrome.action.onClicked.addListener((tab) => {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ["scripts/content.js"]
+    });
+  });
 
+
+
+  // Example of a simple user data object
+const user = {
+    username: 'demo-user'
+  };
   
-
-// Copyright 2017 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-'use strict';
-
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    // 2. A page requested user data, respond with a copy of `user`
+    console.log(message)
+    if (message === 'get-user-data') {
+      sendResponse(user);
+    }
+  });

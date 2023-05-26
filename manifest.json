@@ -1,46 +1,23 @@
 {
-    "name": "Me Talk Pretty",
-    "description": "Base Level Extension",
-    "version": "1.0",
-    "default_locale": "en",
-    "manifest_version": 3,
-    "action": {
-      "default_icon": {
-        "16": "newtab_search16.png",
-        "32": "newtab_search32.png",
-        "48": "newtab_search48.png",
-        "128": "newtab_search128.png"
-      }
+  "manifest_version": 3,
+  "name": "Reading time",
+  "version": "1.0",
+  "description": "Add the reading time to Chrome Extension documentation articles",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "icons": {
+    "16": "images/icon-16.png",
+    "32": "images/icon-32.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {              
+      "16": "images/icon-16.png",  
+      "32": "images/icon-32.png"    
     },
-      "icons": {
-        "16": "newtab_search16.png",
-        "32": "newtab_search32.png",
-        "48": "newtab_search48.png",
-        "128": "newtab_search128.png"
-      },
-    "permissions": [
-      "contextMenus",
-      "activeTab",
-      "storage",
-      "scripting", "alarms", "notifications"
-    ],
-    "content_scripts": [
-      {
-        "js": ["content.js"],
-        "matches": [
-          "https://developer.chrome.com/docs/extensions/*",
-          "https://developer.chrome.com/docs/webstore/*"
-        ]
-      }
-    ],
-    "omnibox": { "keyword": "nt" },
-  "options_page": "options.html",
-  "commands": {
-    "displayHighlightedText": {
-      "suggested_key": {
-        "default": "Alt+O"
-      },
-      "description": "Display Highlighted Text"
-    }
-  }  
+    "default_title": "Click Me"
+  }
 }
