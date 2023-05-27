@@ -3,7 +3,7 @@
   "name": "Reading time",
   "version": "1.0",
   "description": "Add the reading time to Chrome Extension documentation articles",
-  "permissions": ["activeTab", "storage", "scripting"],
+  "permissions": ["activeTab", "storage", "scripting", "tabs"],
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
@@ -13,11 +13,17 @@
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["scripts/content.js"]
+    }
+  ],
   "action": {
     "default_icon": {              
       "16": "images/icon-16.png",  
       "32": "images/icon-32.png"    
     },
-    "default_title": "Click Me"
+    "default_title": "Me Talk Pretty"
   }
 }
