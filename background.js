@@ -1,14 +1,19 @@
 chrome.action.onClicked.addListener((tab) => {
   chrome.scripting.executeScript({
     target: {tabId: tab.id},
-    files: ['script/content.js']
+    files: ['scripts/content.js']
   });
 });
 
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.text) {
-    console.log('Received message:', request.text);
-    // Additional code to handle the received message
-  }
-});
+chrome.runtime.onMessage.addListener( // this is the message listener
+    function(request, sender, sendResponse) {
+        if (request.message === "messageSent")
+            runThisFunction(request.message);
+    }
+);
+
+function runThisFunction(msg) {
+  console.log("**********MESSAGED RECEIVED!")
+  console.log(`**************Here is your message ${msg}`)
+}
