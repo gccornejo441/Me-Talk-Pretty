@@ -8,8 +8,8 @@ chrome.action.onClicked.addListener((tab) => {
 
 chrome.runtime.onMessage.addListener( // this is the message listener
     function(request, sender, sendResponse) {
-        if (request.message === "messageSent")
-            runThisFunction(request.message);
+      console.log(`****** request message: ${request}`)
+            runThisFunction(request);
     }
 );
 
