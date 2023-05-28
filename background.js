@@ -1,10 +1,9 @@
 chrome.action.onClicked.addListener((tab) => {
   chrome.scripting.executeScript({
     target: {tabId: tab.id},
-    files: ['scripts/content.js']
+    files: ['scripts/content-script.js']
   });
 });
-
 
 chrome.runtime.onMessage.addListener( // this is the message listener
     function(request, sender, sendResponse) {
