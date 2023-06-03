@@ -8,7 +8,8 @@ async function copyPage() {
 }
 
 function onClickHandler(target, tab) {
-  console.log(`***************message.action: ${lastRequest.action}`);
+  console.log(`***************message.target: ${JSON.stringify(target)}`);
+  console.log(`***************message.tab: ${JSON.stringify(tab)}`);
   switch (lastRequest.action) {
     case "copyPage":
       console.log("Im inside of copypage line: 13");
@@ -17,20 +18,21 @@ function onClickHandler(target, tab) {
     case "copyElement":
       var url = target.linkUrl;
       var text = target.selectionText || lastRequest.text;
+      console.log(`***************message.TEXT: ${JSON.stringify(text)}`);
 
-      if (!url && !text && !target.srcUrl) {
+      if (!url && !text && !target.linkUrl) {
         copyPage();
         break;
       }
 
-      if (!target.srcUrl) {
+      if (!target.linkUrl) {
         chrome.tabs.query(
           { active: true, currentWindow: true },
           function (tabs) {
             var tabId = tabs[0].id;
             chrome.tabs.sendMessage(
               tabId,
-              { greeting: "hello" },
+              { text: text, url: url },
               function (response) {
                 // Handle the response from the content script
                 console.log("Response from content script:", response);
@@ -45,12 +47,10 @@ function onClickHandler(target, tab) {
             );
           }
         );
-
-        copy("[" + text + "](" + url + ")");
         break;
       }
 
-      text = "![](" + target.srcUrl + ")";
+      text = "![](" + target.linkUrl + ")";
       if (url) {
         copy("[" + text + "](" + url + ")");
       } else {

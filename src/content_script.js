@@ -9,6 +9,12 @@
   
   
 })()
+var copy = function(text) {
+
+  console.log(`***************: ${text} is ZERO`)
+  $('#clipboard_area').text("Hi this is static text")[0].select();
+  document.execCommand('Copy');
+}
 
 window.addEventListener('keydown', function(event) {
   // Command + Ctrl + C
@@ -50,15 +56,23 @@ document.addEventListener("contextmenu", async function (event) {
   }
 }, true);
 
+var text = ""
+var url = ""
 
 // Listener 1
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
   console.log(`*******************message from background script:  ${message}`)
-  if (message.type === "hello") {
+  if (!message.text && !message.url) {
     console.log("Listener 1 received message for action A");
+
+    text = message.text;
+    url = message.url
+
+    copy("[" + text + "](" + url + ")");
     // Perform actions specific to action A
   } else {
     console.log("Listener 1 received message:", message);
+    copy("[" + text + "]");
     // Perform default actions for other message types
   }
 });
