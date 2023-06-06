@@ -1,10 +1,20 @@
 let lastRequest = {};
 
 async function copyPage() {
-  console.log("Im inside of copypage line:4");
-  // const [tab] = await chrome.tabs.query({ active: true });
-  // console.log(tab.id);
-  // chrome.tabs.sendMessage(tab.id, { greeting: "hello" });
+  chrome.tabs.query(
+    { active: true, currentWindow: true },
+    function (tabs) {
+      var tabId = tabs[0].id;
+      chrome.tabs.sendMessage(
+        tabId,
+        { tabTitle: tab.title, tabUrl: tab.url },
+        function (response) {
+          // Handle the response from the content script
+          console.log("Response from content script:", response);
+        }
+      );
+    }
+  );
 }
 
 function backgroundSendAssets(text, url) {
@@ -92,7 +102,7 @@ function onClickHandler(target, tab) {
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
   if (info.menuItemId === "menuOption") {
-
+console.log(`**************: ${JSON.stringify(info)}`)
     chrome.tabs.query(
       { active: true, currentWindow: true },
       function (tabs) {
@@ -102,8 +112,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
           { action: info.menuItemId },
           function (response) {
             // Handle the response from the content script
-            console.log("Response from content script:", response);
-
+            console.log("Response from Background js:", response);
           }
         );
       }
@@ -127,8 +136,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log(`***************message.action: ${message.action}`);
 
   if (message.action === "copyPage") {
+    sendResponse("You action is to copy the page")
     copyPage();
   } else {
+    sendResponse("You action is to send to last request.")
     lastRequest = message;
   }
+
 });
