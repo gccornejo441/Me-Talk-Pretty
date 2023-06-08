@@ -1,6 +1,4 @@
 (() => {
-  
-  chrome.action.setBadgeText({ text: 'grr' });
 
   const cleanBtn = document.getElementById('copyButton')
   const contentTB = document.getElementById('inputText');
@@ -13,7 +11,8 @@
  */
 async function copy(textToCopy) {
   try {
-    await navigator.clipboard.writeText(textToCopy);
+    chrome.action.setBadgeText({ text: 'CLIP!' });
+    await navigator.clipboard.writeText(textToCopy)
     // Successful copy, no additional action needed.
   } catch (error) {
     console.error('Unable to copy text:', error);
